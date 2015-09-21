@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+<meta charset="utf-8" />
+<title>vitfo</title>
+</head>
+<body>
+	<wicket:extend>
+		<div class="register">
+			<a href="#" wicket:id="register"><wicket:message key="link.register"/></a>
+		</div>
+	
+		<div wicket:id="feedback"></div>
+
+		<form wicket:id="loginForm">
+			<input type="text" wicket:id="email" id="email" /><label for="email"><wicket:message key="form.email" /></label><br />
+			<input type="password" wicket:id="password" id="password" /><label for="password"><wicket:message key="form.password" /></label><br />
+			<input type="submit" wicket:id="submit" wicket:message="value:form.submit" />
+		</form>
+	</wicket:extend>
+</body>
+</html>

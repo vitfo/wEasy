@@ -1,0 +1,214 @@
+/* Basic css style for all pages */
+body {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 1em;
+	color: #2e4372;
+	margin: 0px;
+	padding: 0px;
+	background-color: #95aad6;
+}
+
+img {
+	width: 100%;
+}
+
+a {
+	color: #2e4372;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #2e4372;
+}
+
+#content {
+	width: 60%;
+	min-width: 1000px;
+	margin: 20px auto;
+	background-color: #fefeff;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+#top {
+	border-bottom: 1px solid #2e4372;
+	padding: 10px 0px;
+}
+
+#middle {
+	padding: 10px 0px;
+}
+
+#bottom {
+	border-top: 1px solid #2e4372;
+	padding: 10px;
+}
+
+.basePanel {
+	border: 3px solid #2e4372;
+	width: 47%;
+	display: inline-block;
+	margin: 5px;
+	padding: 5px;
+	vertical-align: top;
+	text-align: left;
+}
+
+.basePanel h2 {
+	margin: 5px;
+	border-bottom: 1px solid #2e4372;
+}
+
+.baseLinkPanel {
+	padding: 3px 5px;
+}
+
+.baseLinkPanel a {
+	text-decoration: underline;
+}
+
+.baseLinkPanel a:hover {
+	color: #95aad6;
+}
+
+.editMenu {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #2e4372;
+}
+
+.article {
+	padding: 10px;
+}
+
+.footer {
+	font-size: smaller;
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+.feedbackPanel {
+        list-style: none;
+        color: red;
+        border: 1px solid red;
+        margin: 10px 5px;
+        padding: 5px;
+}
+
+.feedbackPanel li {
+        padding: 2px 0;
+}
+
+nav ul {
+	font-size: 110%;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+nav ul li {
+	display: inline-block;
+}
+
+nav ul li a {
+	display: inline-block;
+	border: 1px solid #2e4372;
+	padding: 2px 5px;
+	margin: 1px;
+}
+
+nav ul li a:hover {
+	background-color: #efefff;
+}
+
+nav.topMenu ul li a.logout {
+	border-color: red;
+	color: red;
+}
+
+nav.topMenu ul li a.logout:hover {
+	background-color: red;
+	color: white;
+}
+
+table {
+	border-collapse: collapse;
+	margin: 10px 0px;
+	border: 1px solid #2e4372;
+}
+
+tbody tr {
+	cursor: pointer;
+}
+
+td {
+	padding: 5px 10px;
+}
+
+th {
+	padding: 5px;
+}
+
+tbody tr:nth-child(odd) {
+	background: #efefff;
+}
+
+form {
+	margin: 10px 5px;
+}
+
+label {
+	display: inline-block;
+	margin: 5px 10px;
+}
+
+input[type="submit"], input[type="button"] {
+	margin-top: 5px;
+}
+
+.multiUpload {
+	margin: 5px 0;
+}
+
+.register {
+	margin: 5px;
+}
+
+.register a {
+	margin: 0;
+	font-size: 110%;
+	display: inline-block;
+	border: 1px solid blue;
+	color: blue;
+	padding: 2px 5px;
+	margin: 1px;
+}
+
+.register a:hover {
+	background-color: blue;
+	color: white;
+}
+
+.formContainer {
+	border-top: 1px solid #2e4372;
+}
+
+.commentsContainer {
+	border-top: 1px solid #2e4372;
+}
+
+.comment {
+	border: 1px solid #2e4372;
+	margin: 10px 5px;
+	padding: 5px;
+}
+
+.addCommentInfo {
+	display: inline-block;
+	margin: 0 5px;
+	font-size: smaller;
+}

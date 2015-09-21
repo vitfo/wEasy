@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="scripts/text_editor.js"></script>
+</head>
+<body>
+	<wicket:panel>
+			<div wicket:id="feedback"></div>
+			<form wicket:id="form">
+				<select wicket:id="categories" id="categories"></select><label for="categories"><wicket:message key="label.categories"/></label><br/>
+				<select wicket:id="directories" id="directories"></select><label for="directories"><wicket:message key="label.directories"/></label><br/>
+				<div id="editor">
+					<div class="toolbar">
+						<input type="button" value="B" onclick="textEditor.modifySelection('b')" />
+						<input type="button" value="I" onclick="textEditor.modifySelection('i')" /> 
+						<input type="button" value="U" onclick="textEditor.modifySelection('u')" />
+	
+						<input type="button" value="H1" onclick="textEditor.modifySelection('h1')" /> 
+						<input type="button" value="H2" onclick="textEditor.modifySelection('h2')" /> 
+						<input type="button" value="H3" onclick="textEditor.modifySelection('h3')" /> 
+						<input type="button" value="H4" onclick="textEditor.modifySelection('h4')" /> 
+						<input type="button" value="A" onclick="textEditor.modifySelection('A')" />
+						<input type="button" value="PRE" onclick="textEditor.modifySelection('pre')" /> 
+						<input type="button" value="CODE" onclick="textEditor.modifySelection('code')" /> 
+						<input type="button" value="P" onclick="textEditor.modifySelection('p')" />
+	
+						<a wicket:id="showImageModalLink"><input type="button" value="IMG" /></a>
+						<!--<input type="button" value="CODE" onclick="inserBreak()" />-->
+					</div>
+					<textarea id="textEdit" wicket:id="textEdit" cols="80" rows="10"></textarea>
+					
+					<div class="toolbar">
+						<input type="button" onclick="textEditor.clearEditArea();" wicket:message="value:button.clear" /> 
+						<input type="button" onclick="textEditor.viewText();" wicket:message="value:button.view" /> 
+						<input type="submit" wicket:id="submitButton" onclick="textEditor.modifyTextArea();" wicket:message="value:button.submit" />
+					</div>
+	
+					<div id=previewModalWindow class="modal">
+						<div class="previewModal">
+							<div>
+								<div class="relative">
+									<a href="#" class="close" onclick="closePreviewModalWindow();">x</a>
+								</div>
+							</div>
+							<div id="textView" ></div>
+						</div>
+					</div>
+				</div>
+				<textarea id="textSend" wicket:id="textSend"></textarea>
+			</form>
+
+			<div class="modal" wicket:id="modal">
+				<div class="imageModal">
+					<div class="relative">
+						<a href="#" wicket:id="closeLink" class="close">x</a>
+					</div>
+	
+					<div class="imageLink" wicket:id="lv">
+						<a href="#" wicket:id="imageLink"> <img wicket:id="image" />
+							<div wicket:id="imageLabel"></div>
+						</a>
+					</div>
+				</div>
+			</div>
+			
+		<script>
+            // =================================================================
+            // Object TextEditor
+            // =================================================================
+            function TextEditor(textEditId, textSendId, textViewId) {
+                // Edit area (text area)
+                var textEditElement = document.getElementById(textEditId);
+                // Text area with correct tags (not the fake ones)
+                var textSendElement = document.getElementById(textSendId);
+                // View area (div)
+                var textViewElement = document.getElementById(textViewId);
+
+                var START_PREFIX = "[";
+                var START_SUFFIX = "]";
+                var END_PREFIX = "[/";
+                var END_SUFFIX = "]";
+                var IMG_SUFFIX = "/]";
+
+				// Modifies textarea before submit. Replace [] for <> so the text could be saved to database.
+				this.modifyTextArea = function() {
+					textSendElement.value = this.replaceFakeTags();
+				}
+                
+                // Inserts tag(s) into the edit area
+                this.insertImage = function (tag) {
+                    var imgTag = START_PREFIX + tag.toUpperCase() + " " + "src=''" + src + "''" + IMG_SUFFIX;
+                    var text = textEditElement.value;
+                    var begin = text.substring(0, textEditElement.selectionStart);
+                    var end = text.substring(textEditElement.selectionEnd);
+                    textEditElement.value = begin + imgTag + end;
+                };
+
+             	// Inserts img with src into the edit area
+                this.modifySelection = function (tag, scr) {
+                    var startTag = START_PREFIX + tag.toUpperCase() + START_SUFFIX;
+                    var endTag = END_PREFIX + tag.toUpperCase() + END_SUFFIX;
+                    var text = textEditElement.value;
+                    var begin = text.substring(0, textEditElement.selectionStart);
+                    var selection = text.substring(textEditElement.selectionStart, textEditElement.selectionEnd);
+                    var end = text.substring(textEditElement.selectionEnd);
+                    textEditElement.value = begin + startTag + selection + endTag + end;
+                };
+
+                // Modifies editing area. It is called when article is loaded from database to replace <>.
+                this.modifyArea = function() {
+                	textEditElement.value = this.replaceTagsForFakes(); 
+                }
+
+                // Replaces tag in edit area for relevant html tags and shows the text in view area
+                this.viewText = function () {
+                    var text = this.replaceFakeTags();
+                    textViewElement.innerHTML = text;
+                    console.log(text);
+                    showPreviewModalWindow();
+                };
+
+                // Replaces tags for the fake tags.
+                this.replaceTagsForFakes = function() {
+					var text = textEditElement.value;
+
+					// Bold
+                    text = text.replace(/<b>/gi, "[b]");
+                    text = text.replace(/<\/b>/gi, "[/b]");
+                    // Italic
+                    text = text.replace(/<i>/gi, "[i]");
+                    text = text.replace(/<\/i>/gi, "[/i]");
+                    // Underline
+                    text = text.replace(/<u>/gi, "[u]");
+                    text = text.replace(/<\/u>/gi, "[/u]");
+
+                    // Headers
+                    text = text.replace(/<h1>/gi, "[h1]");
+                    text = text.replace(/<\/h1>/gi, "[/h1]");
+                    text = text.replace(/<h2>/gi, "[h2]");
+                    text = text.replace(/<\/h2>/gi, "[/h2]");
+                    text = text.replace(/<h3>/gi, "[h3]");
+                    text = text.replace(/<\/h3>/gi, "[/h3]");
+                    text = text.replace(/<h4>/gi, "[h4]");
+                    text = text.replace(/<\/h4>/gi, "[/h4]");
+
+                    // A, PRE, CODE, P
+                    text = text.replace(/<a/gi, "[a");
+                    text = text.replace(/">/gi, "\x22a]");
+                    text = text.replace(/<\/a>/gi, "[/a]");
+                    text = text.replace(/<pre>/gi, "[pre]");
+                    text = text.replace(/<\/pre>/gi, "[/pre]");
+                    text = text.replace(/<code>/gi, "[code]");
+                    text = text.replace(/<\/code>/gi, "[/code]");
+                    text = text.replace(/<p>/gi, "[p]");
+                    text = text.replace(/<\/p>/gi, "[/p]");
+
+//                     text = text.replace(/<br\/>/gi, "\n");
+
+                    text = text.replace(/<img/gi, "[img");
+                    text = text.replace(/\/>/gi, "/img]");
+
+                    
+
+                    return text;
+                };
+
+                // Replaces fake tags for the real ones.
+                this.replaceFakeTags = function() {
+                	var text = textEditElement.value;
+
+                    // Replace all < and > chars.
+                    text = text.replace(/</gi, "&lt;");
+                    text = text.replace(/>/gi, "&gt;");
+
+                    // Bold
+                    text = text.replace(/\[b\]/gi, "<b>");
+                    text = text.replace(/\[\/b\]/gi, "</b>");
+                    // Italic
+                    text = text.replace(/\[i\]/gi, "<i>");
+                    text = text.replace(/\[\/i\]/gi, "</i>");
+                    // Underline
+                    text = text.replace(/\[u\]/gi, "<u>");
+                    text = text.replace(/\[\/u\]/gi, "</u>");
+
+                    // Headers
+                    text = text.replace(/\[h1\]/gi, "<h1>");
+                    text = text.replace(/\[\/h1\]/gi, "</h1>");
+                    text = text.replace(/\[h2\]/gi, "<h2>");
+                    text = text.replace(/\[\/h2\]/gi, "</h2>");
+                    text = text.replace(/\[h3\]/gi, "<h3>");
+                    text = text.replace(/\[\/h3\]/gi, "</h3>");
+                    text = text.replace(/\[h4\]/gi, "<h4>");
+                    text = text.replace(/\[\/h4\]/gi, "</h4>");
+
+                    // A, PRE, CODE, P
+                    text = text.replace(/\[a/gi, "<a");
+                    text = text.replace(/"a\]/gi, "\x22>");
+                    text = text.replace(/\[\/a\]/gi, "</a>");
+                    text = text.replace(/\[pre\]/gi, "<pre>");
+                    text = text.replace(/\[\/pre\]/gi, "</pre>");
+                    text = text.replace(/\[code\]/gi, "<code>");
+                    text = text.replace(/\[\/code\]/gi, "</code>");
+                    text = text.replace(/\[p\]/gi, "<p>");
+                    text = text.replace(/\[\/p\]/gi, "</p>");
+
+
+                    text = text.replace(/\[img/gi, "<img");
+                    text = text.replace(/\/img\]/gi, "/>");
+
+//                     text = text.replace(/\n/gi, "<br/>");
+
+                    console.log(text);
+                    return text;
+                }
+                
+                // Inserts img tags with src attribute
+                this.insertImage = function(url) {
+                    console.log(url);
+                    var text = textEditElement.value;
+                    var position = textEditElement.selectionStart;
+                    var before = text.substring(0, position);
+                    var after = text.substring(position);
+                    var tag = START_PREFIX + "IMG SRC='" + url + "'/IMG" + START_SUFFIX; 
+                    textEditElement.value = before + tag + after;
+                };
+                
+                // Clears the edit area
+                this.clearEditArea = function() {
+                    textEditElement.value = "";
+                };
+            }
+            
+            // =================================================================
+            // Object one directory with images array
+            // =================================================================
+            function DirImages() {
+                var directory;
+                var images = [];
+
+                this.setDirectory = function (dir) {
+                    directory = dir;
+                };
+                this.getDirectory = function () {
+                    return directory;
+                };
+                this.addImage = function (image) {
+                    images[images.length] = image;
+                };
+                this.getImages = function () {
+                    return images;
+                };
+            }
+
+            // Declaration and instantination of objects
+            var textEditor = new TextEditor("textEdit", "textSend", "textView");
+
+            function showPreviewModalWindow() {
+                var modal = document.getElementById("previewModalWindow");
+				modal.style.display="block";
+            }
+            function closePreviewModalWindow() {
+            	var modal = document.getElementById("previewModalWindow");
+				modal.style.display="none";
+            }
+        </script>
+	</wicket:panel>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+<meta charset="utf-8" />
+<title>vitfo</title>
+</head>
+<body>
+	<wicket:extend>
+
+		<div class="article">
+			<div wicket:id="articleText"></div>
+		</div>
+
+		<div wicket:id="formContainer" class="formContainer">
+			<form wicket:id="form">
+				<textarea wicket:id="comment" rows="3" cols="80"></textarea><br/>
+				<input type="submit" wicket:id="submit" wicket:message="value:form.submit">
+				<span class="addCommentInfo"><wicket:message key="addCommentInfo"/></span>
+			</form>
+		</div>
+
+		<div wicket:id="commentsContainer"  class="commentsContainer">
+			<div wicket:id="repeater" class="comment">
+				<div wicket:id="text"></div>
+				<div wicket:id="created"></div>
+			</div>
+		</div>
+
+	</wicket:extend>
+</body>
+</html>

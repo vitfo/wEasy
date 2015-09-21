@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title wicket:id="title"></title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div id="content">
+		<div id="top">
+			<div wicket:id="topMenu"></div>
+		</div>
+
+		<div id="middle">
+			<wicket:child />
+		</div>
+
+		<div id="bottom">
+			<div class="footer"><wicket:message key="created.by.wicket"/><a href="http://wicket.apache.org/">Apache Wicket</a>.</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</body>
+</html>

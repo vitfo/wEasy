@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<wicket:extend>
+
+	<div wicket:id="feedback"></div>
+	
+	<form wicket:id="form">
+		<select wicket:id="categories"></select>
+		<select wicket:id="directories"></select>
+		<div wicket:id="multiUpload" class="multiUpload"></div>
+		
+		<input type="button" wicket:id="submit" wicket:message="value:button.submit"/>
+	</form>
+	
+</wicket:extend>
+</body>
+</html>

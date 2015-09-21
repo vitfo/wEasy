@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<wicket:panel>
+	
+		<nav class="topMenu">
+			<ul>
+				<li><a href="#" wicket:id="homepage"><wicket:message key="menu.home"/></a></li>
+				<li wicket:enclosure="login"><a href="#" wicket:id="login"><wicket:message key="menu.login"/></a></li>
+				<li wicket:enclosure="administration"><a href="#" wicket:id="administration"><wicket:message key="menu.administration"/></a></li>
+				<li wicket:enclosure="logout"><a href="#" wicket:id="logout" class="logout"><wicket:message key="menu.logout"/></a></li>
+			</ul>
+		</nav>
+		<div class="clear"></div>
+		
+	</wicket:panel>
+</body>
+</html>
