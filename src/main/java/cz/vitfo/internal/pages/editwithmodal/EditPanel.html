@@ -117,7 +117,6 @@
                 this.viewText = function () {
                     var text = this.replaceFakeTags();
                     textViewElement.innerHTML = text;
-                    console.log(text);
                     showPreviewModalWindow();
                 };
 
@@ -211,13 +210,11 @@
 
 //                     text = text.replace(/\n/gi, "<br/>");
 
-                    console.log(text);
                     return text;
                 }
                 
                 // Inserts img tags with src attribute
                 this.insertImage = function(url) {
-                    console.log(url);
                     var text = textEditElement.value;
                     var position = textEditElement.selectionStart;
                     var before = text.substring(0, position);

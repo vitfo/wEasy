@@ -87,14 +87,12 @@ public class EditPanel extends Panel {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target) {
 				target.appendJavaScript("textEditor.modifyTextArea();");
-				System.out.println(textFromEdit);
 				saveText();
 				setResponsePage(HomePage.class);
 			}
 			
 			@Override
 			protected void onError(AjaxRequestTarget target) {
-				System.out.println("on error triggered");
 				target.add(feedback);
 			}
 		});

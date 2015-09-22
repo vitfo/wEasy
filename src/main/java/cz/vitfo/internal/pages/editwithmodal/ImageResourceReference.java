@@ -42,7 +42,6 @@ public class ImageResourceReference extends ResourceReference {
 			// get PageParameters from attributes
 			PageParameters parameters = attributes.getParameters();
             StringValue imageId = parameters.get("imageId");
-            System.out.println("imageId: " + imageId);
             
             byte[] imageBytes = null;
             try {
@@ -51,7 +50,6 @@ public class ImageResourceReference extends ResourceReference {
                 Image img = dao.getImageById(id);
                 imageBytes = img.getBytes();
             } catch (Exception e) {
-            	System.out.println("Exception when parsing imageId");
             }
             
             return imageBytes;
