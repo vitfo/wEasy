@@ -40,6 +40,7 @@ import cz.vitfo.database.daoimpl.ImageDaoImpl;
 import cz.vitfo.database.model.Article;
 import cz.vitfo.database.model.Category;
 import cz.vitfo.database.model.Directory;
+import cz.vitfo.external.pages.homepage.HomePage;
 
 public class EditPanel extends Panel {
 	
@@ -88,11 +89,7 @@ public class EditPanel extends Panel {
 				target.appendJavaScript("textEditor.modifyTextArea();");
 				System.out.println(textFromEdit);
 				saveText();
-				target.add(categoriesDDCH);
-				target.add(textEdit);
-				target.add(feedback);
-				selectedCategory = null;
-				textFromEdit = "";
+				setResponsePage(HomePage.class);
 			}
 			
 			@Override

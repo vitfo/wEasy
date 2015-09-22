@@ -18,5 +18,5 @@ The best way how to learn is by doing. By creating your web using wEasy you get 
 **Home page - with categories and articles**
 ![homepage](https://cloud.githubusercontent.com/assets/3948892/9992636/9e1314c0-6073-11e5-8a8c-8bbbe29ad22b.png)
 
-**Article page - signed user can add comments**
-*![articlepage](https://cloud.githubusercontent.com/assets/3948892/9992670/ddfd3142-6073-11e5-92c8-5dfce7882262.png)
+**Article page - article with some comments**
+![articlepage](https://cloud.githubusercontent.com/assets/3948892/9992670/ddfd3142-6073-11e5-92c8-5dfce7882262.png)
