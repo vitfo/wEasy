@@ -11,11 +11,12 @@ import cz.vitfo.database.model.Image;
 
 /**
  * Class that represents my ResourceReference -> my image reference
+ * 
  * @author vitfo
  *
  */
 public class ImageResourceReference extends ResourceReference {
-	
+
 	private static final long serialVersionUID = 6402188485466805555L;
 
 	public ImageResourceReference() {
@@ -27,11 +28,12 @@ public class ImageResourceReference extends ResourceReference {
 		// Return my class ImageResource representing image resource.
 		return new ImageResource();
 	}
-	
+
 	/**
-	 * Class that represents my image resource - DynamicImageResource.
-	 * The method getImageData returns byte[] array.
-	 * The method can receive attributes as parameter.
+	 * Class that represents my image resource - DynamicImageResource. The
+	 * method getImageData returns byte[] array. The method can receive
+	 * attributes as parameter.
+	 * 
 	 * @author User
 	 *
 	 */
@@ -41,18 +43,18 @@ public class ImageResourceReference extends ResourceReference {
 		protected byte[] getImageData(Attributes attributes) {
 			// get PageParameters from attributes
 			PageParameters parameters = attributes.getParameters();
-            StringValue imageId = parameters.get("imageId");
-            
-            byte[] imageBytes = null;
-            try {
-            	long id = Integer.parseInt(imageId.toString());
-            	ImageDaoImpl dao = new ImageDaoImpl();
-                Image img = dao.getImageById(id);
-                imageBytes = img.getBytes();
-            } catch (Exception e) {
-            }
-            
-            return imageBytes;
+			StringValue imageId = parameters.get("imageId");
+
+			byte[] imageBytes = null;
+			try {
+				int id = Integer.parseInt(imageId.toString());
+				ImageDaoImpl dao = new ImageDaoImpl();
+				Image img = dao.getImageById(id);
+				imageBytes = img.getBytes();
+			} catch (Exception e) {
+			}
+
+			return imageBytes;
 		}
 	}
 }

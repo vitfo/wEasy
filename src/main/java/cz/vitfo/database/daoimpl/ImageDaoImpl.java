@@ -58,11 +58,11 @@ public class ImageDaoImpl extends DaoImpl implements ImageDao {
 	}
 
 	@Override
-	public Image getImageById(long id) {
+	public Image getImageById(int id) {
 		Image img = null;
 		try (Connection con = dataSource.getConnection()) {
 			PreparedStatement ps = con.prepareStatement("select id, directory_id, name, data from " + TableEnum.T_IMAGE + " where id = ?");
-			ps.setLong(1, id);
+			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				img = new Image();
@@ -104,6 +104,17 @@ public class ImageDaoImpl extends DaoImpl implements ImageDao {
 			ps.setObject(1, uploadedImageFile.getDirectoryId());
 			ps.setString(2, uploadedImageFile.getFileName());
 			ps.setBinaryStream(3, new ByteArrayInputStream(uploadedImageFile.getBytes()), uploadedImageFile.getBytes().length);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteImage(int id) {
+		try (Connection con = dataSource.getConnection()) {
+			PreparedStatement ps = con.prepareStatement("delete from " + TableEnum.T_IMAGE.name() + " where id = ?");
+			ps.setInt(1, id);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

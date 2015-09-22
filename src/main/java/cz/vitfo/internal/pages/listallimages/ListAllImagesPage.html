@@ -7,7 +7,14 @@
 <body>
 	<wicket:extend>
 	
-		<img wicket:id="images" width="300px" />
+		<div wicket:id="container" class="imageContainer">
+			<div wicket:id="images" class="image">
+				<img wicket:id="image" width="300px" />
+				<div class="name" wicket:id="name"></div>
+				<a class="delete" href="#" wicket:id="delete"><wicket:message key="image.delete"/></a>
+			</div>
+		</div>
+		<div class="clear"></div>
 		
 	</wicket:extend>
 </body>

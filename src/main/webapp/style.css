@@ -212,3 +212,28 @@ input[type="submit"], input[type="button"] {
 	margin: 0 5px;
 	font-size: smaller;
 }
+
+.imageContainer .image {
+	display: inline-block;
+	width: 300px;
+	float: left;
+	border: 1px solid #2e4372;
+	margin: 5px;
+	padding: 5px;
+}
+
+.imageContainer .image .name {
+	border-top: 1px solid #2e4372;
+	padding: 5px 0;
+}
+
+.imageContainer .image a.delete  {
+	display: inline-block;
+	border: 1px solid #2e4372;
+	margin-top: 5px;
+	padding: 3px 5px;
+}
+
+.imageContainer .image a.delete:hover  {
+	background-color: #efefff;
+}
