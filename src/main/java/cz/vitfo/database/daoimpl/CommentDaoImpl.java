@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class CommentDaoImpl extends DaoImpl implements CommentDao {
 		try (Connection con = dataSource.getConnection()) {
 			PreparedStatement ps = con.prepareStatement("insert into " + TableEnum.T_COMMENT + " (text, created, article_id, user_id) values (?, ?, ?, ?)");
 			ps.setString(1, comment.getText());
-			ps.setDate(2, new Date(System.currentTimeMillis()));
+			ps.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
 			ps.setInt(3, comment.getArticleId());
 			ps.setInt(4, comment.getUserId());
 			ps.executeUpdate();
